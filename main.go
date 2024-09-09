@@ -7,7 +7,6 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"path"
 	"strings"
 	"time"
 )
@@ -15,13 +14,6 @@ import (
 func handleError(err error){
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "[-] %s\n", err.Error())
-		os.Exit(1)
-	}
-}
-
-func usage(args []string){
-	if len(args) < 2{
-		fmt.Fprintf(os.Stderr, "Usage: %s <file.csv>\n", path.Base(args[0]))
 		os.Exit(1)
 	}
 }

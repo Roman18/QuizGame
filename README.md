@@ -8,7 +8,6 @@ import (
   "flag"
   "fmt"
   "os"
-  "path"
   "strings"
   "time"
 )
