@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bufio"
 	"encoding/csv"
 	"fmt"
 	"os"
 	"path"
+	"strings"
 )
 
 func handleError(err error){
@@ -21,6 +23,22 @@ func usage(args []string){
 	}
 }
 
+func readCSVFile(file *os.File) Questions{
+	questions := Questions{}
+
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+
+	handleError(err)
+
+	for index, record := range records{
+		questions = append(questions, Question{Id: uint(index + 1), Test: record[0], Answer: record[1]})
+	}
+	return questions
+
+}
+
+
 func main(){
 	args := os.Args
 	usage(args)
@@ -34,16 +52,19 @@ func main(){
 
 	fmt.Printf("File %s was opened\n", fileName)
 
-	reader := csv.NewReader(file)
-	
-	records, err := reader.ReadAll()
+	questions := readCSVFile(file)
 
-	handleError(err)
-
-	for _, record := range records{
-		fmt.Println(record)
-	}
 }
 
+// struct to store single question
+type Question struct{
+	Id uint
+	Test string
+	Answer string
+}
+
+
+// aliace type to store bunch of questions
+type Questions []Question
 
 
