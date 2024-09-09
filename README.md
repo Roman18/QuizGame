@@ -2,16 +2,16 @@
 ## Simple project to practise golang. Use next modules:
 ```golang
 import (
-  3         "bufio"
-  4         "encoding/csv"
-  5         "errors"
-  6         "flag"
-  7         "fmt"
-  8         "os"
-  9         "path"
- 10         "strings"
- 11         "time"
- 12 )
+  "bufio"
+  "encoding/csv"
+  "errors"
+  "flag"
+  "fmt"
+  "os"
+  "path"
+  "strings"
+  "time"
+)
 ```
 ### Example of csv file:
 ```cmd
