@@ -3,12 +3,13 @@ package main
 import (
 	"bufio"
 	"encoding/csv"
+	"errors"
+	"flag"
 	"fmt"
 	"os"
 	"path"
 	"strings"
 	"time"
-	"errors"
 )
 
 func handleError(err error){
@@ -73,22 +74,22 @@ func quiz(questions Questions, interval uint) (uint, error) {
 
 
 func main(){
-	args := os.Args
-	usage(args)
-	fileName := args[1]
 
-	file, err := os.Open(fileName)
+	fileName := flag.String("csv", "problems.csv", "a csv file which contains the task in the format of 'question,answer'")
+	limit := flag.Uint("limit", 30, "the time limit for the quiz in seconds")
+	flag.Parse()
+
+	file, err := os.Open(*fileName)
 
 	handleError(err)
 
 	defer file.Close()
 
 	questions := readCSVFile(file)
-	var interval uint = 10
 
-	fmt.Printf("File %s was loaded\nYou have %d seconds\n", fileName, interval)
+	fmt.Printf("File %s was loaded\nYou have %d seconds\n", *fileName, *limit)
 
-	score, err := quiz(questions, interval)
+	score, err := quiz(questions, *limit)
 
 	fmt.Printf("\nYour score: %d\n", score)
 
